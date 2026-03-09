@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  edge-processor:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: iot-edge-processor
+    environment:
+      - APP_ENV=production
+      - LOG_LEVEL=INFO
+      - MQTT_BROKER_HOST=mqtt-broker
+      - MQTT_BROKER_PORT=1883
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - model-data:/app/models
+      - log-data:/app/logs
+    depends_on:
+      - redis
+      - mqtt-broker
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
+
+  redis:
+    image: redis:7-alpine
+    container_name: iot-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  mqtt-broker:
+    image: eclipse-mosquitto:2
+    container_name: iot-mqtt
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - mqtt-data:/mosquitto/data
+      - mqtt-logs:/mosquitto/log
+    restart: unless-stopped
+
+volumes:
+  model-data:
+  log-data:
+  redis-data:
+  mqtt-data:
+  mqtt-logs:

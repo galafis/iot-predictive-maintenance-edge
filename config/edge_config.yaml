@@ -1,0 +1,87 @@
+# IoT Predictive Maintenance Edge - Configuration
+# ================================================
+
+app_name: "IoT Predictive Maintenance Edge"
+environment: "development"
+log_level: "INFO"
+
+edge:
+  device_id: "edge-node-001"
+  max_memory_mb: 512
+  inference_timeout_ms: 500
+  preferred_runtime: "tflite"
+  model_dir: "models/"
+  enable_hot_swap: true
+  batch_size: 1
+  num_threads: 2
+
+mqtt:
+  broker_host: "localhost"
+  broker_port: 1883
+  client_id: "iot-maintenance-edge"
+  topics:
+    - "sensors/+/telemetry"
+    - "sensors/+/status"
+  qos: 1
+  keepalive: 60
+  use_tls: false
+  offline_buffer_size: 10000
+  reconnect_delay_s: 5
+  max_reconnect_attempts: 10
+
+model:
+  update_check_interval_s: 3600
+  max_model_versions: 3
+  validation_threshold: 0.85
+  compression_enabled: true
+  rollback_on_failure: true
+  ota_enabled: true
+
+anomaly:
+  isolation_forest_contamination: 0.05
+  isolation_forest_n_estimators: 100
+  z_score_threshold: 3.0
+  sliding_window_size: 100
+  spc_control_limit_sigma: 3.0
+  correlation_threshold: 0.7
+  min_samples_for_detection: 50
+  alert_cooldown_s: 300
+
+rul:
+  prediction_horizon_hours: 720
+  confidence_level: 0.95
+  health_index_weights:
+    vibration: 0.30
+    temperature: 0.25
+    pressure: 0.20
+    current: 0.15
+    acoustic: 0.10
+  degradation_trend_window: 48
+  critical_health_threshold: 0.3
+  warning_health_threshold: 0.5
+
+storage:
+  cassandra_hosts:
+    - "localhost"
+  cassandra_port: 9042
+  cassandra_keyspace: "iot_maintenance"
+  cassandra_replication_factor: 1
+  ttl_raw_data_days: 30
+  ttl_aggregated_data_days: 365
+  downsample_interval_s: 300
+  redis_host: "localhost"
+  redis_port: 6379
+  redis_db: 0
+  prediction_cache_ttl_s: 600
+  health_index_cache_ttl_s: 120
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 2
+  cors_origins:
+    - "*"
+  api_prefix: "/api/v1"
+  enable_docs: true
+  rate_limit_per_minute: 120
+  request_timeout_s: 30
