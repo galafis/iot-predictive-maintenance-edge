@@ -4,7 +4,6 @@
 
 ### Sistema de Manuten&ccedil;&atilde;o Preditiva IoT com Edge Computing
 
-[![CI Pipeline](https://github.com/galafis/iot-predictive-maintenance-edge/actions/workflows/ci.yml/badge.svg)](https://github.com/galafis/iot-predictive-maintenance-edge/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange.svg)](https://scikit-learn.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
