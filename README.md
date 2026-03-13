@@ -7,6 +7,7 @@
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange.svg)](https://scikit-learn.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg?logo=docker)](Dockerfile)
 [![Edge Computing](https://img.shields.io/badge/Edge-Computing-purple.svg)](#)
 
 *An edge computing platform for real-time predictive maintenance of industrial equipment, combining IoT sensor data with machine learning for anomaly detection and remaining useful life prediction.*
